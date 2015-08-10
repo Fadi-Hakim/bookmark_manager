@@ -4,5 +4,8 @@ source "https://rubygems.org"
 ruby '2.2.2'
 
 # gem "rails"
-gem 'rspec'
-gem 'capybara'
+group :development, :test do
+  gem 'rspec'
+  gem 'capybara'
+  gem 'rspec-sinatra'
+end
