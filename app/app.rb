@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require_relative 'data_mapper_setup'
 
 class MyApp < Sinatra::Base
   get '/links' do
@@ -8,7 +9,6 @@ class MyApp < Sinatra::Base
 
   get '/links/new' do
     erb :'links/new'
-    redirect '/links'
   end
 
   post '/links' do

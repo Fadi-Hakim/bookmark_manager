@@ -2,6 +2,7 @@ require 'capybara/rspec'
 require File.expand_path '../../app/app.rb', __FILE__
 require './app/data_mapper_setup'
 require 'sinatra'
+require 'database_cleaner'
 
 Capybara.app = MyApp
 
@@ -15,6 +16,19 @@ RSpec.configure do |config|
 
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 
 end
