@@ -17,7 +17,11 @@ class MyApp < Sinatra::Base
   end
 
   post '/links' do
-    Link.create(url: params[:url], title: params[:title])
+    link = Link.create(url: params[:url],     # 1. Create a link
+                  title: params[:title])
+    tag  = Tag.create(name: params[:tag]) # 2. Create a tag for the link
+    link.tags << tag                       # 3. Adding the tag to the link's DataMapper collection.
+    link.save                              # 4. Saving the link.
     redirect to('/links')
   end
 
